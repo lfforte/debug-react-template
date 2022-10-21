@@ -55,11 +55,7 @@ export default function App() {
   return (
     <div className="App">
       <div>
-        <input
-          type="text"
-          onChange={onChangeTextoNovoPost}
-          value={textoNovoPost}
-        />
+        <input placeholder="Digite o texto aqui" />
         <button onClick={adicionarPost}>Adicionar</button>
       </div>
       <br />
