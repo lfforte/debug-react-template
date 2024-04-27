@@ -1,5 +1,5 @@
-import { useState } from "react";
-import {Post} from "../Post/Post";
+import { React, useState } from "react";
+import Post from "../Post/Post";
 import { BotaoAdicionar, ContainerDePostagem, ContainerDosInputs, DivisorDaTela, Header } from "./telaDePostagemStyle";
 
 const TelaDePostagem = () => {
@@ -8,7 +8,7 @@ const TelaDePostagem = () => {
     const [posts, setPost] = useState([])
 
     const onChangeUsuario = (event) => {
-        setNomeDoUsuario(event.value)
+        setNomeDoUsuario(event.target.value)
     }
     const onChangeTextoNovoPost = (event) => {
         setTextoNovoPost(event.target.value);
@@ -28,11 +28,11 @@ const TelaDePostagem = () => {
                 comentarios: []
             }
 
-            setPost(novoPost)
+            setPost([...posts, novoPost])
             limparInputs()
 
         } else {
-            alert("Adicione o nome do usuário")
+            alert("Adicione o nome do usuário e texto da postagem")
         }
     }
 
@@ -50,7 +50,7 @@ const TelaDePostagem = () => {
             if (post.id === id) {
                 const curtidaAlterada = {
                     ...post,
-                    curtido: post.curtido
+                    curtido: !post.curtido
                 }
                 return curtidaAlterada
             } else {
@@ -58,28 +58,25 @@ const TelaDePostagem = () => {
             }
         })
         setPost(novaListaDePosts)
+        console.log(novaListaDePosts);
     }
+
 
     function adicionaComentario(id, comentario) {
         const novaListaDePosts = posts.map(post => {
             if (post.id === id && comentario !== "") {
-                const novaListaDeComentarios = [comentario, ...post.comentarios]
-                const postComComentario = { ...post, comentarios: novaListaDeComentarios }
-
-                return postComComentario
-
-            } else {
-                return post
+                const novoPost = {
+                    ...post,
+                    comentarios: [...post.comentarios, comentario]
+                };
+                return novoPost;
             }
-        })
-
-        setPost(novaListaDePosts)
-
+            return post;
+        });
+        setPost(novaListaDePosts);
     }
 
-
-
-    const listaDePosts = posts.map((post) => {
+    const listaDePosts = posts.map(post => {
         return <Post
             key={post.id}
             alterarCurtida={alterarCurtida}
@@ -109,12 +106,12 @@ const TelaDePostagem = () => {
                     <textarea
                         id="postagem"
                         type="text"
-                        onchange={onChangeTextoNovoPost}
+                        onChange={onChangeTextoNovoPost}
                         value={textoNovoPost}
                         placeholder="texto da postagem"
                     />
 
-                    <BotaoAdicionar onClick={() => adicionarPost}>Adicionar</BotaoAdicionar >
+                    <BotaoAdicionar onClick={adicionarPost}>Adicionar</BotaoAdicionar >
                 </ContainerDosInputs>
             </Header>
 
