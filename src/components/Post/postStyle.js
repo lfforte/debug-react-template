@@ -32,7 +32,6 @@ export const TextoDaPostagem = styled.textarea`
     font-size: 1rem;
     padding: 10px;
     resize: none;
-    
 
 `
 
@@ -43,10 +42,12 @@ gap: 10px;
 
 `
 
-export const toggleDosComentarios = styled.details`
+export const ToggleDosComentarios = styled.div`
     margin: 10px;
     color: gray;
+
 `
+
 export const BotaoCurtir = styled.button`
     border: none;
     width: 15%;

@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { React, useState } from 'react'
 import { BotaoComentar, ContainerDeComentarios, InputDoComentario, SessaoDeComentario } from './comentarioStyle'
 
- function Comentario(props) {
+function Comentario(props) {
     const [comentario, setComentario] = useState("")
 
     const onChangeComentario = (e) => {
-        setComentario(e.target.valeu)
+        setComentario(e.target.value)
     }
 
     const enviarComentario = () => {
@@ -15,7 +15,7 @@ import { BotaoComentar, ContainerDeComentarios, InputDoComentario, SessaoDeComen
 
     }
     const listaDeComentarios = props.comentarios.map((comentario, index) => {
-        return <p>{comentario}</p>
+        return <p key={index}>{comentario}</p>
     })
 
     return (
@@ -29,7 +29,7 @@ import { BotaoComentar, ContainerDeComentarios, InputDoComentario, SessaoDeComen
                 value={comentario}
             />
 
-            <BotaoComentar onclick={enviarComentario}>Comentar Post</BotaoComentar>
+            <BotaoComentar onClick={enviarComentario}>Comentar Post</BotaoComentar>
 
 
         </SessaoDeComentario>
